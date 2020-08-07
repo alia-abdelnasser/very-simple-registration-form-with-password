@@ -37,6 +37,8 @@
         // disable button
         submitBtn.disabled = true;
         post(signinUrl, {
+            fullname: document.querySelector('#fullname').value,
+            email: document.querySelector('#email').value,
             username: document.querySelector('#username').value,
             password: document.querySelector('#password').value
         }, function (res) {
