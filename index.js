@@ -34,23 +34,19 @@
     function submitForm() {
         // show loader
         loader.style.display = 'inline-block';
-        // disable button
-        submitBtn.disabled = true;
-        post(signinUrl, {
+        let data = {
             fullname: document.querySelector('#fullname').value,
             email: document.querySelector('#email').value,
             username: document.querySelector('#username').value,
             password: document.querySelector('#password').value
-        }, function (res) {
-            // show error msg
-            if (res.error.msg) {
-                resultMsg.textContent = res.error.msg;
-                resultMsg.style.display = 'block';
-            }
+        };
+        console.log(data);
+        // disable button
+        post(signinUrl, data, function (res) {
             // hide loader
+            resultMsg.textContent = 'Registered Successfully';
+            resultMsg.style.display = 'block';
             loader.style.display = 'none';
-            // enable button
-            submitBtn.disabled = false;
         });
     }
 

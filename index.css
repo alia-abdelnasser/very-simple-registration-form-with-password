@@ -99,7 +99,7 @@ input:invalid:not(:placeholder-shown) {
   border-bottom: 1px solid red;
 }
 .result-msg{
-  color: red;
+  color: green;
   font-size: 12px;
   margin-top: 1rem;
 }
