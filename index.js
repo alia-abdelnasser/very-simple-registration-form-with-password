@@ -1,5 +1,5 @@
 (function () {
-    var signinUrl = 'https://private-47ed5-interviewapitest.apiary-mock.com/signin';
+    var signinUrl = 'https://my-json-server.typicode.com/alia-abdelnasser/very-simple-registration-form-with-password/accounts';
 
     var fullname = document.querySelector('#fullname');
     var fullnamelabel = document.querySelector('.label-fullname');
@@ -36,7 +36,10 @@
         loader.style.display = 'inline-block';
         // disable button
         submitBtn.disabled = true;
-        post(signinUrl, { username: document.querySelector('#username').value, password: document.querySelector('#password').value }, function (res) {
+        post(signinUrl, {
+            username: document.querySelector('#username').value,
+            password: document.querySelector('#password').value
+        }, function (res) {
             // show error msg
             if (res.error.msg) {
                 resultMsg.textContent = res.error.msg;
@@ -125,26 +128,27 @@
     // on keyuo (change) validate
     username.addEventListener('keyup', validateUsername);
 
-    function validatePasswordStrength(password) {
+    function validatePasswordStrength(passwordValue) {
         var strengthPatterns = new Array();
-        strengthPatterns.push('[A-Z]');
-        strengthPatterns.push('[a-z]');
-        strengthPatterns.push('[0-9]');
-        strengthPatterns.push('[$@$!%*#?&]');
+        strengthPatterns.push(new RegExp('[A-Z]'));
+        strengthPatterns.push(new RegExp('[a-z]'));
+        strengthPatterns.push(new RegExp('[0-9]'));
+        strengthPatterns.push(new RegExp('[$@$!%*#?&]'));
 
         // calculate password strength according to length and matching strength pattaerns
         var strength = 0;
-        switch (true) {
-            case password.length >= 8:
-                strength++;
-            case password.length >= 6:
-                strength++;
-            case password.length >= 4:
-                strength++;
+        if (passwordValue.length >= 8) {
+            strength++;
+        }
+        if (passwordValue.length >= 6) {
+            strength++;
+        }
+        if (passwordValue.length >= 4) {
+            strength++;
         }
 
         for (var i = 0; i < strengthPatterns.length; i++) {
-            if (new RegExp(strengthPatterns[i]).test(password)) {
+            if (strengthPatterns[i].test(passwordValue)) {
                 strength++;
             }
         }
@@ -207,6 +211,7 @@
 
     function validateForm() {
         // validate required field and focus on first error
+
         if (!validateEmail()) {
             email.focus();
             return;
